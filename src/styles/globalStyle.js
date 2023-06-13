@@ -15,6 +15,9 @@ export const GlobalStyle = createGlobalStyle`
 
   body, input, button, textarea {
     font-family: 'Inter', sans-serif;
+    color: var(--ColorGrey-000);
+
+    background-color: var(--ColorGrey-400);
   }
 
   button {

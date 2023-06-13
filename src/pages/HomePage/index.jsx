@@ -24,23 +24,23 @@ export const HomePage = () => {
 
   return (
     <>
-    <nav>
-      <img src={ logo } alt='Logo da Kenzie Hub na cor rosa'/>
+      <nav>
+        <img src={ logo } alt='Logo da Kenzie Hub na cor rosa'/>
+        
+        <Link to='/' onClick={handleLogout}>Sair</Link>
+      </nav>
       
-      <Link to='/' onClick={handleLogout}>Sair</Link>
-    </nav>
-    
-    <header>
-      <h1>Olá, {userData.user.name}</h1>
-      <p>{userData.user.course_module}</p>
+      <header>
+        <h1>Olá, {userData.user.name}</h1>
+        <p>{userData.user.course_module}</p>
 
-      <ToastContainer></ToastContainer>
-    </header>
+        <ToastContainer></ToastContainer>
+      </header>
 
-    <main>
-      <h2>Que pena! Estamos em desenvolvimento :(</h2>
-      <p>Nossa aplicação está em desenvolvimento, em breve teremos novidades</p>
-    </main>
+      <main>
+        <h2>Que pena! Estamos em desenvolvimento :(</h2>
+        <p>Nossa aplicação está em desenvolvimento, em breve teremos novidades</p>
+      </main>
     </>
   )
 }

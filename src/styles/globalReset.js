@@ -15,7 +15,7 @@ export const GlobalReset = createGlobalStyle`
   }
 
   input {
-    /* border: none; */
+    border: none;
   }
 
   input:focus {
@@ -30,4 +30,5 @@ export const GlobalReset = createGlobalStyle`
   button{
     border:none;
   }
+
 `

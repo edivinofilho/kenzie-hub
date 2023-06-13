@@ -7,6 +7,8 @@ import { useState } from 'react'
 import { Slide, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
+import { StyledForm } from './styles'
+
 export const LoginForm = () => {
   const [userData, setUserData] = useState()
 
@@ -49,13 +51,13 @@ export const LoginForm = () => {
   }
   
   return (
-    <form onSubmit={handleSubmit(submit)}>
-      <Input label="Email" type="email" {...register("email")} />
+    <StyledForm onSubmit={handleSubmit(submit)}>
+      <Input label="Email" type="email" placholder="Digite seu email" {...register("email")} />
      
       <Input label="Password" type="password" {...register("password")} />
      
       <button type="submit">Entrar</button>
       <ToastContainer></ToastContainer>
-    </form>
+    </StyledForm>
   )
 }
