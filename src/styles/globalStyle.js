@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     --ColorGrey-000: #F8F9FA;
     --ColorSucess: #3FE864;
     --ColorNegative: #E83F5B;
+
   }
 
   body, input, button, textarea {

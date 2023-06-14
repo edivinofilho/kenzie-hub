@@ -5,6 +5,10 @@ import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { Slide, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
+import { StyledHomeNav, StyledHomeHeader, StyledMain } from './styles'
+import { StyledImg } from '../LoginPage/styles'
+import { StyledButton } from '../RegisterPage/styles'
+
 export const HomePage = () => {
 
   const location = useLocation()
@@ -24,23 +28,27 @@ export const HomePage = () => {
 
   return (
     <>
-      <nav>
-        <img src={ logo } alt='Logo da Kenzie Hub na cor rosa'/>
-        
-        <Link to='/' onClick={handleLogout}>Sair</Link>
-      </nav>
+      <StyledHomeNav>
+        <div>
+          <StyledImg src={ logo } alt='Logo da Kenzie Hub na cor rosa'/>
+          
+          <StyledButton to='/' onClick={handleLogout}>Sair</StyledButton>
+        </div>
+      </StyledHomeNav>
       
-      <header>
-        <h1>Olá, {userData.user.name}</h1>
-        <p>{userData.user.course_module}</p>
+      <StyledHomeHeader>
+        <div>
+          <h1>Olá, {userData.user.name}</h1>
+          <p>{userData.user.course_module}</p>
+        </div>
 
         <ToastContainer></ToastContainer>
-      </header>
+      </StyledHomeHeader>
 
-      <main>
+      <StyledMain>
         <h2>Que pena! Estamos em desenvolvimento :(</h2>
         <p>Nossa aplicação está em desenvolvimento, em breve teremos novidades</p>
-      </main>
+      </StyledMain>
     </>
   )
 }

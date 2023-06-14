@@ -1,16 +1,16 @@
 import logo from '../../assets/logo.png'
 import { LoginForm } from '../../components/LoginForm/LoginForm'
-// import { Link } from 'react-router-dom'
 
+import { StyledHeader, StyledImg } from './styles'
 
 import { StyledFormContainer, StyledLink } from './styles'
 
 export const LoginPage = () => {
   return (
     <>
-      <header>
-        <img src={ logo } alt='Logo da Kenzie Hub na cor rosa' />
-      </header>
+      <StyledHeader>
+        <StyledImg src={ logo } alt='Logo da Kenzie Hub na cor rosa' />
+      </StyledHeader>
       <StyledFormContainer> 
         <h1>Login</h1>
         <LoginForm />

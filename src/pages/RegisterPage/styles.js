@@ -1,25 +1,27 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const StyledHeader = styled.header`
-  width: 100%;
+export const StyledRegisterHeader = styled.header`
+  width: 90%;
   height: 8rem;
+
+  max-width: 23rem;
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   text-align: center;
 
-  padding: 2rem;
+  margin: 0 auto;
+
+  padding: 2rem 0;
+
+  /* background-color: red; */
 `
 
-export const StyledImg = styled.img`
-  width: 8rem;
-` 
-
-export const StyledFormContainer = styled.main`
+export const StyledRegisterFormContainer = styled.main`
   width: 90%;
-  height: 32rem;
+  height: auto;
   max-width: 23rem;
 
   display: flex;
@@ -27,7 +29,7 @@ export const StyledFormContainer = styled.main`
   align-items: center;
   gap: 2rem;
 
-  padding: 2.2rem 1.4rem;
+  padding: 2.2rem .2rem;
   margin: .7rem auto;
 
   border-radius: 4px;
@@ -44,19 +46,21 @@ export const StyledFormContainer = styled.main`
   }
 `
 
-export const StyledLink = styled(Link)`
-  width: 100%;
-  height: 3rem;
+export const StyledButton = styled(Link)`
+  width: 5rem;
+  height: 2.5rem;
+
+  padding: 0rem .6rem 0rem .6rem;
+
+  background-color: var(--ColorGrey-300);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: var(--ColorGrey-100);
-
   text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: .8rem;
+  font-weight: 600;
   color: var(--ColorGrey-000);
 
   border-radius: 4px;

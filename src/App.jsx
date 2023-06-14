@@ -1,13 +1,13 @@
 import { RoutesMain } from './routes/RoutesMain'
 
-import { GlobalStyle } from './styles/globalStyle'
 import { GlobalReset } from './styles/globalReset'
+import { GlobalStyle } from './styles/globalStyle'
 
 const App = () => {
   return (
     <>
-      <GlobalStyle />
       <GlobalReset />
+      <GlobalStyle />
       <RoutesMain />
     </>
   )

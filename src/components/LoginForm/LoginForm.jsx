@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 import { Slide, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { StyledContainerToast } from '../../styles/toasty'
 
 import { StyledForm } from './styles'
 
@@ -25,12 +26,12 @@ export const LoginForm = () => {
       
       toast.success('Login realizado com sucesso!', {
         transition: Slide,
-        autoClose: 1500
+        autoClose: 2000
       })
       
       setTimeout(() => {
         navigate('/home', { state: { userData: data } })
-      }, 2000)
+      }, 2300)
    
     } catch (error) {
       console.log(error)
@@ -52,12 +53,12 @@ export const LoginForm = () => {
   
   return (
     <StyledForm onSubmit={handleSubmit(submit)}>
-      <Input label="Email" type="email" placholder="Digite seu email" {...register("email")} />
+      <Input label="Email" type="email" placeholder="Digite aqui seu email" {...register("email")} />
      
-      <Input label="Password" type="password" {...register("password")} />
+      <Input label="Password" type="password" placeholder="Digite aqui sua senha"{...register("password")} />
      
       <button type="submit">Entrar</button>
-      <ToastContainer></ToastContainer>
+      <ToastContainer theme="dark"></ToastContainer>
     </StyledForm>
   )
 }

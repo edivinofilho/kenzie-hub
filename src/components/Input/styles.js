@@ -22,6 +22,8 @@ export const StyledInput = styled.div`
 
   input:focus {
     border: 2px solid var(--ColorGrey-000);
+    background-color: var(--ColorGrey-200);
+
   }
 
   > label {

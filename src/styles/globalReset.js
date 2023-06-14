@@ -14,7 +14,7 @@ export const GlobalReset = createGlobalStyle`
     overflow-x: hidden;
   }
 
-  input {
+  input, select {
     border: none;
   }
 
