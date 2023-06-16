@@ -12,7 +12,9 @@ export const StyledRegisterForm = styled.form`
 
   padding-top: 1rem;
 
+  
   > button {
+    transition: 0.5s;
     width: 100%;
 
     padding: 1rem;
@@ -24,6 +26,10 @@ export const StyledRegisterForm = styled.form`
     &.active {
       background-color: var(--ColorPrimary);
       cursor: pointer;
+
+      &:hover {
+        background-color: var(--ColorHover);
+      }
     }
 
     &:not(.active) {

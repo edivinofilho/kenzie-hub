@@ -21,7 +21,7 @@ export const StyledSelect = styled.select`
 
   padding: 0.5rem 1rem;
 
-  font-size: clamp(.7rem, 8vw, 1rem);
+  font-size: clamp(.6rem, 5vw, 1rem);
   font-weight: 400;
   color: var(--ColorGrey-100);
 `

@@ -3,9 +3,8 @@ import { RoutesMain } from './routes/RoutesMain'
 import { GlobalReset } from './styles/globalReset'
 import { GlobalStyle } from './styles/globalStyle'
 
-import { Slide, ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
 
 const App = () => {
   return (

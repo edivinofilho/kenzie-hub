@@ -1,13 +1,18 @@
 import { useForm } from 'react-hook-form'
-import { Input } from '../Input/Input'
-import { api } from '../../services/api'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { LoginFormSchema } from './LoginFormSchema'
+
+import { api } from '../../services/api'
+
+import { Input } from '../Input/Input'
 
 import { Slide, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { StyledForm, StyledIconContainer, StyledLinkContainer } from './styles'
+import { StyledErrorMsg } from '../RegiterForm/styles'
 
 import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri'
 
@@ -15,18 +20,29 @@ import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri'
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
 
-  const [userData, setUserData] = useState()
-  const { register, handleSubmit, reset } = useForm()
+  const [userData, setUserData] = useState([])
+ 
+  const {register, handleSubmit, formState: {errors}, reset} = useForm({
+    mode: 'onBlur',
+    resolver: zodResolver(LoginFormSchema)
+  })
+
   const navigate = useNavigate()
 
   const loginUser = async (formData) => {
+        
     try {
       
       const {data} = await api.post('/sessions', formData)
-      
-      localStorage.setItem('userData', JSON.stringify(data))
-      
-      setUserData(data)
+       
+      const userData = {
+        email: formData.email,
+        password: formData.password
+      }
+
+      setUserData(userData)
+
+      localStorage.setItem('@USERDATA', JSON.stringify(userData))
       
       toast.success('Login realizado com sucesso!', {
         transition: Slide,
@@ -49,8 +65,9 @@ export const LoginForm = () => {
   const passwordInput = () => {
     return (
       <StyledIconContainer>
-        <Input label="Password" type={showPassword ? 'text' : 'password'} placeholder="Digite aqui sua senha" {...register("password")} />
-        
+        <Input label="Password" className="password" type={showPassword ? "text" : "password"} placeholder="Digite aqui sua senha" 
+        {...register("password")} />
+                
         {showPassword ? (
         <StyledLinkContainer onClick={() => setShowPassword(false)}>
           <RiEyeOffLine />
@@ -64,15 +81,14 @@ export const LoginForm = () => {
   }
 
   const submit = (formData) => {
-    console.log(formData)
     loginUser(formData)
-
     reset()
   }
   
   return (
     <StyledForm onSubmit={handleSubmit(submit)}>
-      <Input label="Email" type="email" placeholder="Digite aqui seu email" {...register("email")} />
+      <Input label="Email" type="email" placeholder="Digite aqui seu email"  {...register("email")} />
+      {errors.email ?  <StyledErrorMsg>{errors.email.message}</StyledErrorMsg> : null}
      
       {passwordInput()}
      

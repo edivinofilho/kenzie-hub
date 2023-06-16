@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 
 import { StyledSelectContainer, StyledSelect } from './styles'
 
-export const Select = forwardRef(({label, type, id, ...rest}, ref) => {
+export const Select = forwardRef(({label, type, ...rest}, ref) => {
   return (
     <StyledSelectContainer>
       {label ? <label>{label}</label> : null} 

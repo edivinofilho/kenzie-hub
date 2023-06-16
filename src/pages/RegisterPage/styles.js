@@ -42,11 +42,16 @@ export const StyledRegisterFormContainer = styled.main`
 
   > h1 {
     font-size: 1.1rem;
+    text-align: center;
+    line-height: 1.5;
+
   }
 
   > p {
     color: var(--ColorGrey-100);
     font-size: .8rem;
+    text-align: center;
+    line-height: 1.5;
   }
 `
 
@@ -69,5 +74,10 @@ export const StyledButton = styled(Link)`
 
   border-radius: 4px;
 
+  transition: .5s;
+  
+  &:hover {
+    background-color: var(--ColorGrey-200);
+  }
 
 `

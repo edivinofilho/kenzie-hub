@@ -1,14 +1,13 @@
 import { useState } from 'react'
-
 import { useForm } from 'react-hook-form'
-import { RegisterFormSchema } from './RegisterFormSchema'
+import { useNavigate } from 'react-router-dom'
 
 import { Input } from '../Input/Input'
 import { Select } from '../Select/Select'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { RegisterFormSchema } from './RegisterFormSchema'
 import { api } from '../../services/api'
-import { useNavigate } from 'react-router-dom'
 
 import { toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -16,10 +15,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import { StyledRegisterForm, StyledErrorMsg } from './styles'
 
 
-
 export const RegisterForm = () => { 
   const {register, handleSubmit, formState: {errors, isValid}, watch, reset} = useForm({
-    mode: "onBlur",
+    mode: 'onBlur',
     resolver: zodResolver(RegisterFormSchema)
   })
 
@@ -32,13 +30,25 @@ export const RegisterForm = () => {
     try {
       setLoading(true)
 
-      const {data} = await api.post('/users', formData)
-
-      toast.success('Conta criada com sucesso!', {
-        transition: Slide,
-        autoClose: 2300
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000)
       })
-      
+  
+      toast.promise(
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(api.post('/users', formData))
+          }, 1500)
+        }),
+        {
+          pending: 'Enviando seus dados...',
+          success: 'Conta criada com sucesso!',
+          error: 'Ops! Algo deu errado',
+          transition: Slide,
+          autoClose: 1800
+        }
+      )
+  
       navigate('/')
 
     } catch (error) {
@@ -62,7 +72,6 @@ export const RegisterForm = () => {
     reset()
   }
 
-    
   return (
     <>
       <StyledRegisterForm onSubmit={handleSubmit(submit)}>
@@ -75,18 +84,17 @@ export const RegisterForm = () => {
         <Input label="Senha" type="password" placeholder="Digite aqui sua senha" {...register("password")} />
         {errors.password ?  <StyledErrorMsg>{errors.password.message}</StyledErrorMsg> : null}
 
-        <Input label="Confirmar Senha" type="password" placeholder="Digite novamente sua senha" {...register("confirm")} />
+        <Input label="Confirmar Senha" type="password" placeholder="Confirme sua senha" {...register("confirm")} />
         {errors.confirm ?  <StyledErrorMsg>{errors.confirm.message}</StyledErrorMsg> : null}
 
         <Input label="Bio" type="text" placeholder="Fale sobre você" {...register("bio")} />
         {errors.bio ?  <StyledErrorMsg>{errors.bio.message}</StyledErrorMsg> : null}
 
         <Input label="Contato" type="text" placeholder="Opção de contato" {...register("contact")} />
-        {errors.contact ?  <StyledErrorMsg>{errors.name.message}</StyledErrorMsg> : null}
+        {errors.contact ?  <StyledErrorMsg>{errors.contact.message}</StyledErrorMsg> : null}
+
         <Select label="Módulos" {...register("course_module")}/>
 
-        
-        
         <button type="submit" className={isValid ? 'active' : ''} disabled={!isValid}>
           {loading ? "Cadastrando..." : "Cadastrar"}
         </button>
