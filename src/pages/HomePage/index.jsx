@@ -18,6 +18,8 @@ export const HomePage = () => {
 
   const handleLogout = () => {
 
+    localStorage.clear()
+    
     toast.success('Logout realizado com sucesso!', {
       transition: Slide,
       autoClose: 1500,

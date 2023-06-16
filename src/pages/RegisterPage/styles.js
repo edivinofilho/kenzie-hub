@@ -11,12 +11,16 @@ export const StyledRegisterHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   text-align: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 
   margin: 0 auto;
 
   padding: 2rem 0;
 
-  /* background-color: red; */
+  @media (max-width: 262px) {
+    justify-content: center;
+  }
 `
 
 export const StyledRegisterFormContainer = styled.main`
@@ -59,7 +63,7 @@ export const StyledButton = styled(Link)`
   justify-content: center;
 
   text-decoration: none;
-  font-size: .8rem;
+  font-size: clamp(.7rem, 8vw, .8rem);
   font-weight: 600;
   color: var(--ColorGrey-000);
 

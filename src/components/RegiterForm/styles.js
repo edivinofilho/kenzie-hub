@@ -12,26 +12,24 @@ export const StyledRegisterForm = styled.form`
 
   padding-top: 1rem;
 
-  /* background-color: red; */
-
   > button {
     width: 100%;
 
     padding: 1rem;
     border-radius: 4px;
 
-    font-size: 1rem;
+    font-size: clamp(.7rem, 8vw, 1rem);
     font-weight: 500;
+   
+    &.active {
+      background-color: var(--ColorPrimary);
+      cursor: pointer;
+    }
 
-    background-color: var(--ColorPrimary);
-    cursor: pointer;
-    
-  }
-  
-  > button.active {
-    background-color: var(--ColorPrimaryDisable);
-    cursor: not-allowed;
-
+    &:not(.active) {
+      background-color: var(--ColorPrimaryDisable);
+      cursor: not-allowed;
+    }
   }
 `
 export const StyledErrorMsg = styled.p`

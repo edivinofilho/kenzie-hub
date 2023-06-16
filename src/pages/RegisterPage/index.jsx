@@ -10,7 +10,7 @@ export const RegisterPage = () => {
     <>
       <StyledRegisterHeader>
         <StyledImg src={ logo } alt='Logo da Kenzie Hub na cor rosa' />
-        <StyledButton to='/'>Volta</StyledButton> 
+        <StyledButton to='/'>Voltar</StyledButton> 
       </StyledRegisterHeader>
       <StyledRegisterFormContainer>
         <h1>Crie sua conta</h1>

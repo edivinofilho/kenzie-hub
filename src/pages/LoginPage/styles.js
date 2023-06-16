@@ -55,7 +55,8 @@ export const StyledLink = styled(Link)`
   background-color: var(--ColorGrey-100);
 
   text-decoration: none;
-  font-size: 1rem;
+  font-size: clamp(.7rem, 8vw, 1rem);
+
   font-weight: 500;
   color: var(--ColorGrey-000);
 

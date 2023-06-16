@@ -12,12 +12,12 @@ export const StyledInput = styled.div`
 
     padding: 0.5rem 1rem;
 
-    font-size: 1rem;
+    font-size: clamp(.7rem, 8vw, 1rem);
     font-weight: 400;
     color: var(--ColorGrey-000);
 
     background-color: var(--ColorGrey-200);
-    border-radius: 4px;
+    /* border-radius: ${({borderRadius}) => borderRadius ? borderRadius : '4px'} */
   }
 
   input:focus {

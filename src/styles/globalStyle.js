@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     --ColorGrey-000: #F8F9FA;
     --ColorSucess: #3FE864;
     --ColorNegative: #E83F5B;
-
+    --toastify-color-dark: #212529 ;
   }
 
   body, input, button, textarea {

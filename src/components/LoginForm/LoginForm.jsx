@@ -4,23 +4,27 @@ import { api } from '../../services/api'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-import { Slide, ToastContainer, toast } from 'react-toastify'
+import { Slide, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { StyledContainerToast } from '../../styles/toasty'
 
-import { StyledForm } from './styles'
+import { StyledForm, StyledIconContainer, StyledLinkContainer } from './styles'
+
+import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri'
+
 
 export const LoginForm = () => {
+  const [showPassword, setShowPassword] = useState(false)
+
   const [userData, setUserData] = useState()
-
   const { register, handleSubmit, reset } = useForm()
-
   const navigate = useNavigate()
 
   const loginUser = async (formData) => {
     try {
       
       const {data} = await api.post('/sessions', formData)
+      
+      localStorage.setItem('userData', JSON.stringify(data))
       
       setUserData(data)
       
@@ -29,10 +33,8 @@ export const LoginForm = () => {
         autoClose: 2000
       })
       
-      setTimeout(() => {
-        navigate('/home', { state: { userData: data } })
-      }, 2300)
-   
+      navigate('/home', { state: { userData: data } })
+    
     } catch (error) {
       console.log(error)
 
@@ -42,6 +44,23 @@ export const LoginForm = () => {
       })
 
     }
+  }
+
+  const passwordInput = () => {
+    return (
+      <StyledIconContainer>
+        <Input label="Password" type={showPassword ? 'text' : 'password'} placeholder="Digite aqui sua senha" {...register("password")} />
+        
+        {showPassword ? (
+        <StyledLinkContainer onClick={() => setShowPassword(false)}>
+          <RiEyeOffLine />
+        </StyledLinkContainer>) : (
+        <StyledLinkContainer onClick={() => setShowPassword(true)}>
+          <RiEyeLine />
+        </StyledLinkContainer>
+        )}
+      </StyledIconContainer>
+    )
   }
 
   const submit = (formData) => {
@@ -55,10 +74,9 @@ export const LoginForm = () => {
     <StyledForm onSubmit={handleSubmit(submit)}>
       <Input label="Email" type="email" placeholder="Digite aqui seu email" {...register("email")} />
      
-      <Input label="Password" type="password" placeholder="Digite aqui sua senha"{...register("password")} />
+      {passwordInput()}
      
       <button type="submit">Entrar</button>
-      <ToastContainer theme="dark"></ToastContainer>
     </StyledForm>
   )
 }
