@@ -86,12 +86,40 @@ export const StyledMain = styled.main`
   align-items: flex-start;
   gap: 1.5rem;
 
+  > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > button {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 4px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 1.25rem;
+      font-weight: 500;
+
+      transition: .5s;
+
+      background-color: var(--ColorGrey-200);
+
+      &:hover {
+        background-color: var(--ColorGrey-300);
+      }
+    }
+  }
+
   > h2 {
       font-size: clamp(.7rem, 8vw, 1rem);
       font-weight: 700;
     }
 
-  > p {
+  > span {
     font-size: clamp(.7rem, 8vw, 1.1rem);
     font-weight: 400;
   }

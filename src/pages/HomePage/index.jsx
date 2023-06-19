@@ -1,5 +1,7 @@
 import logo from '../../assets/logo.png'
 
+import { useState } from 'react'
+
 import { useLocation, Link, useNavigate } from 'react-router-dom'
 
 import { Slide, ToastContainer, toast } from 'react-toastify'
@@ -10,18 +12,26 @@ import { StyledImg } from '../LoginPage/styles'
 import { StyledButton } from '../RegisterPage/styles'
 
 import { TechList } from '../../components/TechList/index'
+// import Modal from 'react-modal'
+// Modal.setAppElement(document.body)
+
+import { ModalAddTech } from '../../components/Modal/index'
+
 
 export const HomePage = () => {
-
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  
   const location = useLocation()
   const userData = location.state && location.state.userData
 
   const navigate = useNavigate()
 
-  const handleLogout = () => {
+  const [ techList, setTechList ] = useState([])
 
-    localStorage.clear()
-    
+  const handleLogout = () => {
+    localStorage.removeItem('@TOKEN')
+    localStorage.removeItem('@USERID')
+
     toast.success('Logout realizado com sucesso!', {
       transition: Slide,
       autoClose: 1500,
@@ -30,13 +40,21 @@ export const HomePage = () => {
     navigate('/')
   }
 
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <>
       <StyledHomeNav>
         <div>
-          <StyledImg src={ logo } alt='Logo da Kenzie Hub na cor rosa'/>
+          <StyledImg src={ logo } alt="Logo da Kenzie Hub na cor rosa"/>
           
-          <StyledButton to='/' onClick={handleLogout}>Sair</StyledButton>
+          <StyledButton to="/" onClick={handleLogout}>Sair</StyledButton>
         </div>
       </StyledHomeNav>
       
@@ -50,7 +68,10 @@ export const HomePage = () => {
       </StyledHomeHeader>
 
       <StyledMain>
-        <h2>Technologias</h2>
+        <div>
+          <h2>Technologias</h2>
+          <button onClick={openModal}>+</button>
+        </div>
         <TechList />
       </StyledMain>
     </>

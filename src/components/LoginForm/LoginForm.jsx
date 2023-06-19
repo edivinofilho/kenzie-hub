@@ -42,10 +42,6 @@ export const LoginForm = () => {
 
       setUserData(userData)
 
-      console.log(data.token)
-      console.log(data.user)
-
-
       localStorage.setItem('@TOKEN', JSON.stringify(data.token))
       localStorage.setItem('@USERID', JSON.stringify(data.user))
 
