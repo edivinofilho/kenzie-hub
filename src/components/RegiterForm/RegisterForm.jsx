@@ -29,16 +29,10 @@ export const RegisterForm = () => {
   const addUser = async (formData) => {
     try {
       setLoading(true)
-
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000)
-      })
   
       toast.promise(
         new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(api.post('/users', formData))
-          }, 1500)
+          resolve(api.post('/users', formData))
         }),
         {
           pending: 'Enviando seus dados...',

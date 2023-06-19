@@ -9,6 +9,8 @@ import { StyledHomeNav, StyledHomeHeader, StyledMain } from './styles'
 import { StyledImg } from '../LoginPage/styles'
 import { StyledButton } from '../RegisterPage/styles'
 
+import { TechList } from '../../components/TechList/index'
+
 export const HomePage = () => {
 
   const location = useLocation()
@@ -48,8 +50,8 @@ export const HomePage = () => {
       </StyledHomeHeader>
 
       <StyledMain>
-        <h2>Que pena! Estamos em desenvolvimento :(</h2>
-        <p>Nossa aplicação está em desenvolvimento, em breve teremos novidades</p>
+        <h2>Technologias</h2>
+        <TechList />
       </StyledMain>
     </>
   )

@@ -87,7 +87,7 @@ export const StyledMain = styled.main`
   gap: 1.5rem;
 
   > h2 {
-      font-size: clamp(.8rem, 8vw, 2rem);
+      font-size: clamp(.7rem, 8vw, 1rem);
       font-weight: 700;
     }
 

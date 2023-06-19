@@ -42,8 +42,13 @@ export const LoginForm = () => {
 
       setUserData(userData)
 
-      localStorage.setItem('@USERDATA', JSON.stringify(userData))
-      
+      console.log(data.token)
+      console.log(data.user)
+
+
+      localStorage.setItem('@TOKEN', JSON.stringify(data.token))
+      localStorage.setItem('@USERID', JSON.stringify(data.user))
+
       toast.success('Login realizado com sucesso!', {
         transition: Slide,
         autoClose: 2000
