@@ -29,11 +29,13 @@ export const RegisterForm = () => {
   const addUser = async (formData) => {
     try {
       setLoading(true)
-  
-      toast.promise(
+
+      const response = await api.post('/users', formData)
+
+      await toast.promise(
         new Promise((resolve) => {
-          resolve(api.post('/users', formData))
-        }),
+          resolve(response)
+          }),
         {
           pending: 'Enviando seus dados...',
           success: 'Conta criada com sucesso!',
@@ -42,7 +44,7 @@ export const RegisterForm = () => {
           autoClose: 1800
         }
       )
-  
+
       navigate('/')
 
     } catch (error) {
@@ -52,6 +54,7 @@ export const RegisterForm = () => {
         transition: Slide,
         autoClose: 1500
       })
+      
     } finally {
       setLoading(false)
     }
