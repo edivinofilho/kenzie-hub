@@ -1,3 +1,5 @@
+import { UserProvider } from './providers/UserContext'
+import { TechProvider } from './providers/TechContext'
 import { RoutesMain } from './routes/RoutesMain'
 
 import { GlobalReset } from './styles/globalReset'
@@ -11,7 +13,13 @@ const App = () => {
     <>
       <GlobalReset />
       <GlobalStyle />
-      <RoutesMain />
+
+      <UserProvider>
+        <TechProvider>
+          <RoutesMain />
+        </TechProvider>
+      </UserProvider>
+      
       <ToastContainer theme="dark"></ToastContainer>
     </>
   )

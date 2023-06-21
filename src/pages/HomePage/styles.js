@@ -74,10 +74,13 @@ export const StyledHomeHeader = styled.nav`
     }
   }
 ` 
+
+
 export const StyledMain = styled.main`
   width: 90%;
- 
+  height: auto;
   max-width: 55rem;
+  min-height: 20rem;
 
   margin: 3rem auto;
   
@@ -85,13 +88,14 @@ export const StyledMain = styled.main`
   flex-direction: column;
   align-items: flex-start;
   gap: 1.5rem;
+`
 
-  > div {
+export const StyledTechTitle = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+   
     > button {
       width: 2rem;
       height: 2rem;
@@ -112,7 +116,6 @@ export const StyledMain = styled.main`
         background-color: var(--ColorGrey-300);
       }
     }
-  }
 
   > h2 {
       font-size: clamp(.7rem, 8vw, 1rem);

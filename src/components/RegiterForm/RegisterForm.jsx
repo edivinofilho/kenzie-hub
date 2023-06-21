@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from '../../providers/UserContext'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -21,44 +22,7 @@ export const RegisterForm = () => {
     resolver: zodResolver(RegisterFormSchema)
   })
 
-  
-  const [loading, setLoading ] = useState(false)
-     
-  const navigate = useNavigate()
-
-  const addUser = async (formData) => {
-    try {
-      setLoading(true)
-
-      const response = await api.post('/users', formData)
-
-      await toast.promise(
-        new Promise((resolve) => {
-          resolve(response)
-          }),
-        {
-          pending: 'Enviando seus dados...',
-          success: 'Conta criada com sucesso!',
-          error: 'Ops! Algo deu errado',
-          transition: Slide,
-          autoClose: 1800
-        }
-      )
-
-      navigate('/')
-
-    } catch (error) {
-      console.log(error)
-
-      toast.error('Ops! Algo deu errado', {
-        transition: Slide,
-        autoClose: 1500
-      })
-      
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { addUser, loading } = useContext(UserContext)
 
   const submit = (formData) => {
     delete formData.confirm
@@ -90,7 +54,12 @@ export const RegisterForm = () => {
         <Input label="Contato" type="text" placeholder="Opção de contato" {...register("contact")} />
         {errors.contact ?  <StyledErrorMsg>{errors.contact.message}</StyledErrorMsg> : null}
 
-        <Select label="Módulos" {...register("course_module")}/>
+        <Select label="Módulos" {...register("course_module")}>
+        <option value="Primeiro Módulo">Primeiro módulo (Intro ao Frontend)</option>
+          <option value="Segundo Módulo">Segundo módulo (Frontend Avançado)</option>
+          <option value="Terceiro Módulo">Terceiro módulo (Intro ao Backend)</option>
+          <option value="Quarto Módulo">Quarto módulo (Backend Avançado)</option>
+        </Select>
 
         <button type="submit" className={isValid ? 'active' : ''} disabled={!isValid}>
           {loading ? "Cadastrando..." : "Cadastrar"}

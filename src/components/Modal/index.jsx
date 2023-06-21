@@ -1,35 +1,51 @@
-import { useEffect, useState } from 'react'
-import Modal from 'react-modal'
-Modal.setAppElement(document.body)
+import { useRef, useEffect } from 'react'
 
-export const ModalAddTech = ( {openModal} ) => {
-  const [isOpen, setIsOpen] = useState(false)
+import { StyledModalOverlay, StyledModalBox, StyledModalHeader } from './style'
 
+export const Modal = ({ children, setIsOpen, title}) => {
+  const modalRef = useRef(null)
+  const buttonRef = useRef(null)
 
-  const closeModal = () => {
-    setIsOpen(false)
-  }
+  useEffect (() => {
+    const handleOutClick = (event) => {
+      if(!modalRef.current?.contains(event.target)){
+        setIsOpen(false)
+      }
+    }
 
-  useEffect(() => {
-    setIsOpen(openModal)
-  }, [openModal])
+    window.addEventListener('mousedown', handleOutClick)
 
-  return (
-    <div>
-            
-      <Modal
-      isOpen={isOpen}
-      onRequestClose={closeModal}
-      contentLabel='Exemplo Modal'
-      overlayClassName='modal-overlay'
-      className='modal-content'>
+    return () => {
+    window.removeEventListener('mousedown', handleOutClick)
 
-        <h2>Modal</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, quia dicta optio itaque tempore ratione in, velit repellendus architecto, alias ea libero ut eligendi eum? Ut itaque minima dolores nostrum?</p>
-        <button onClick={closeModal}>X</button>
-      
-      </Modal>
+    }
+  }, [])
 
-    </div>
+  useEffect (() => {
+    const handleKeyDown = (event) => {
+      if(event.key === 'Escape'){
+        buttonRef.current?.click()
+        setIsOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+    window.removeEventListener('keydown', handleKeyDown)
+
+    }
+  }, [])
+
+  return(
+    <StyledModalOverlay role='dialog'>
+      <StyledModalBox ref={modalRef}>
+        <StyledModalHeader>
+          <p>{title}</p>
+          <button onClick={() => setIsOpen(false)}>X</button>
+        </StyledModalHeader>
+        { children }
+      </StyledModalBox>
+    </StyledModalOverlay>
   )
 }

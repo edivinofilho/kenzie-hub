@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import { StyledTechItem } from './style'
 
-export const TechItem = () => {
+export const TechItem = ({ children, onClick }) => {
   return (
-    <StyledTechItem>
-      <p>Nome Tech</p>
-      <span>tech nível</span>
+    <StyledTechItem onClick={onClick}>
+      { children }
     </StyledTechItem>
   )
 }

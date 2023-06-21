@@ -1,60 +1,43 @@
 import logo from '../../assets/logo.png'
 
-import { useState } from 'react'
-
-import { useLocation, Link, useNavigate } from 'react-router-dom'
+import { useContext, useState } from 'react'
+import { UserContext } from '../../providers/UserContext'
+import { useForm } from 'react-hook-form'
 
 import { Slide, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { StyledHomeNav, StyledHomeHeader, StyledMain } from './styles'
+import { StyledHomeNav, StyledHomeHeader, StyledMain, StyledTechTitle } from './styles'
 import { StyledImg } from '../LoginPage/styles'
 import { StyledButton } from '../RegisterPage/styles'
 
 import { TechList } from '../../components/TechList/index'
-// import Modal from 'react-modal'
-// Modal.setAppElement(document.body)
 
-import { ModalAddTech } from '../../components/Modal/index'
+import { Modal } from '../../components/Modal/index'
+import { Input } from '../../components/Input/Input'
+import { Select } from '../../components/Select/Select'
+import { Button } from '../../components/Button'
+import { AddTechForm } from '../../components/AddTechForm'
+import { EditTechForm } from '../../components/EditTechForm'
 
 
 export const HomePage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  
-  const location = useLocation()
-  const userData = location.state && location.state.userData
+  const { userData, logoutUser } = useContext(UserContext)
+  const [isOpen, setIsOpen] = useState(false)
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
-  const navigate = useNavigate()
-
-  const [ techList, setTechList ] = useState([])
-
-  const handleLogout = () => {
-    localStorage.removeItem('@TOKEN')
-    localStorage.removeItem('@USERID')
-
-    toast.success('Logout realizado com sucesso!', {
-      transition: Slide,
-      autoClose: 1500,
-    })
-
-    navigate('/')
-  }
-
-  const openModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false)
-  }
-
+  const {register, handleSubmit, formState: {errors}, reset} = useForm({
+    mode: 'onBlur',
+    // resolver: zodResolver(LoginFormSchema)
+  })
+   
   return (
     <>
       <StyledHomeNav>
         <div>
           <StyledImg src={ logo } alt="Logo da Kenzie Hub na cor rosa"/>
           
-          <StyledButton to="/" onClick={handleLogout}>Sair</StyledButton>
+          <StyledButton to="/" onClick={logoutUser}>Sair</StyledButton>
         </div>
       </StyledHomeNav>
       
@@ -68,10 +51,25 @@ export const HomePage = () => {
       </StyledHomeHeader>
 
       <StyledMain>
-        <div>
+        <StyledTechTitle>
           <h2>Technologias</h2>
-          <button onClick={openModal}>+</button>
-        </div>
+          <button onClick={() => setIsOpen(true)}>+</button>
+          <button onClick={() => setEditModalIsOpen(true)}>*</button>
+
+        </StyledTechTitle>
+
+        {isOpen ?
+        <Modal title={"Cadastrar Tecnologia"} setIsOpen={setIsOpen}>
+          <AddTechForm />
+        </Modal> 
+        : null}
+
+        {editModalIsOpen ?
+        <Modal title={"Tecnologia Detalhes"} setIsOpen={setEditModalIsOpen}>
+          <EditTechForm />
+        </Modal> 
+        : null}
+        
         <TechList />
       </StyledMain>
     </>

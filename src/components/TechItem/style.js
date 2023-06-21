@@ -8,7 +8,8 @@ export const StyledTechItem = styled.li`
   align-items: center;
   justify-content: space-between;
 
-  padding: 13px 22px;
+  padding: .8rem 1.3rem;
+  margin-bottom: 1.4rem;
 
   border-radius: 4px;
 
