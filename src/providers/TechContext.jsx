@@ -48,9 +48,74 @@ export const TechProvider = ({ children }) => {
 
     }
   }
+
+  const submitUpdatedTech = async (formData, tech) => {
+    const token = localStorage.getItem('@TOKEN')
+
+    try {
+      await api.put(`/users/techs/${tech.id}`, formData, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      tech.status = formData.status
+
+      toast.success('Tech editada com sucesso!', {
+        transition: Slide,
+        autoClose: 2000
+      })
+      
+      setEditModalIsOpen(false)
+
+    } catch (error) {
+      console.log(error)
+      toast.error('Ups, houve um problema. Tente novamente!', {
+        transition: Slide,
+        autoClose: 2000
+      })
+
+      setEditModalIsOpen(false)
+    }
+  }
+
+  const deleteTech = async (tech) => {
+    const token = localStorage.getItem('@TOKEN')
+    
+    try {
+      await api.delete(`/users/techs/${tech.id}`,{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+      })
+
+      const updatedTechs = userData.user.techs.filter((item) => item.id !== tech.id)
+
+      const updatedUserData = { ...userData, user: { ...userData.user, techs: updatedTechs } }
+
+      setUserData(updatedUserData)
+
+      toast.success('Tech excluída com sucesso!', {
+        transition: Slide,
+        autoClose: 2000
+      })
+
+      setEditModalIsOpen(false)
+
+    } catch (error) {
+      console.log(error)
+       toast.error('Ups, houve um problema. Tente novamente!', {
+        transition: Slide,
+        autoClose: 2000
+      })
+
+      setEditModalIsOpen(false)
+    }
+  }
    
   return (
-    <TechContext.Provider value={{ submitNewTech, isOpen, setIsOpen, editModalIsOpen, setEditModalIsOpen }}>
+    <TechContext.Provider value={{ submitNewTech, submitUpdatedTech, deleteTech, isOpen, setIsOpen, editModalIsOpen, setEditModalIsOpen }}>
       {children}
     </TechContext.Provider>
   )

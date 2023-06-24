@@ -25,20 +25,29 @@ export const StyledButtonContainer = styled.div`
   justify-content: space-between;
 
   .saveButton {
-    width: 12.75rem;
+    width: 62%;
     height: 3rem;
+
+    font-size: clamp(.6rem, 5vw, 1rem);
 
     border-radius: 4px;
     background-color: var(--ColorPrimaryDisable);
+
+    cursor: not-allowed;
+
+    &.enabled {
+      cursor: pointer;
+      background-color: var(--ColorPrimary);
+    }
   }
 
   .excludeButton {
-    width: 6.125rem;
+    width: 32%;
     height: 3rem;
+
+    font-size: clamp(.6rem, 5vw, 1rem);
 
     border-radius: 4px;
     background-color: var(--ColorGrey-100);
   }
-
-  
 `
