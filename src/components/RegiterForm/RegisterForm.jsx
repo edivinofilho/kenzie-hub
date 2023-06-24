@@ -1,16 +1,13 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { UserContext } from '../../providers/UserContext'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 
 import { Input } from '../Input/Input'
 import { Select } from '../Select/Select'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RegisterFormSchema } from './RegisterFormSchema'
-import { api } from '../../services/api'
 
-import { toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { StyledRegisterForm, StyledErrorMsg } from './styles'

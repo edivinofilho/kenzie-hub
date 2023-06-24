@@ -2,14 +2,14 @@ import { useRef, useEffect } from 'react'
 
 import { StyledModalOverlay, StyledModalBox, StyledModalHeader } from './style'
 
-export const Modal = ({ children, setIsOpen, title}) => {
+export const Modal = ({ children, title, setModalState}) => {
   const modalRef = useRef(null)
   const buttonRef = useRef(null)
 
   useEffect (() => {
     const handleOutClick = (event) => {
       if(!modalRef.current?.contains(event.target)){
-        setIsOpen(false)
+        setModalState(false)
       }
     }
 
@@ -25,7 +25,7 @@ export const Modal = ({ children, setIsOpen, title}) => {
     const handleKeyDown = (event) => {
       if(event.key === 'Escape'){
         buttonRef.current?.click()
-        setIsOpen(false)
+        setModalState(false)
       }
     }
 
@@ -38,13 +38,13 @@ export const Modal = ({ children, setIsOpen, title}) => {
   }, [])
 
   return(
-    <StyledModalOverlay role='dialog'>
+    <StyledModalOverlay role="dialog">
       <StyledModalBox ref={modalRef}>
         <StyledModalHeader>
           <p>{title}</p>
-          <button onClick={() => setIsOpen(false)}>X</button>
+          <button onClick={()=> setModalState()}>X</button>
         </StyledModalHeader>
-        { children }
+        { children } 
       </StyledModalBox>
     </StyledModalOverlay>
   )

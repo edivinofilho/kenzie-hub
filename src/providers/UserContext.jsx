@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 import { api } from '../services/api'
 
@@ -14,28 +14,60 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading ] = useState(false)
   const navigate = useNavigate()
 
-  const loginUser = async (formData) => {    
+  const currentPath = window.location.pathname
 
-    try {
+  useEffect(() => {    
+    const token = localStorage.getItem('@TOKEN')
+    
+    const loadUser = async () => {
+      if(token){       
+        try {
+          setLoading(true)
+          const { data } = await api.get('/profile', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+
+          const updatedUserData = {
+            token: token,
+            user: data
+          }
+
+          setUserData(updatedUserData)
+  
+          navigate(currentPath) 
       
+        } catch(error){
+          toast.error('Ups, tivemos um problema', {
+            transition: Slide,
+            autoClose: 2000
+          })
+          localStorage.removeItem('@TOKEN')
+                  
+        } finally {
+          setLoading(false)
+        }
+      }    
+    }
+    loadUser()
+
+  }, [])
+
+
+  const loginUser = async (formData) => {    
+    try {     
       const {data} = await api.post('/sessions', formData)
-      
-      console.log(data.user)
       localStorage.setItem('@TOKEN', data.token)
-      localStorage.setItem('@USERID', data.user.id)
-      
       setUserData(data)
-      
+        
       toast.success('Login realizado com sucesso!', {
         transition: Slide,
         autoClose: 2000
-      })
-      
+      })  
       navigate('/home')
     
     } catch (error) {
-      console.log(error)
-
       toast.error('Verifique seu email e/ou password!', {
         transition: Slide,
         autoClose: 1500
@@ -46,39 +78,37 @@ export const UserProvider = ({ children }) => {
 
   const logoutUser = () => {
     localStorage.removeItem('@TOKEN')
-    localStorage.removeItem('@USERID')
-
+   
     toast.success('Logout realizado com sucesso!', {
       transition: Slide,
       autoClose: 1500,
     })
-
+    setUserData(null)
     navigate('/')
   }
 
   const addUser = async (formData) => {
-    console.log(formData)
     try {
       setLoading(true)
 
-      const response = await api.post('/users', formData)
+      const responsePromise = api.post('/users', formData)
+      const response = await responsePromise
+
+      await Promise.resolve() 
 
       await toast.promise(
-        Promise.resolve(response), 
-        {
-          pending: 'Enviando seus dados...',
-          success: 'Conta criada com sucesso!',
-          error: 'Ops! Algo deu errado',
-          transition: Slide,
-          autoClose: 1800
-        }
-      )
-
+        responsePromise,
+      {
+        pending: 'Enviando seus dados...',
+        success: 'Conta criada com sucesso!',
+        error: 'Ops! Algo deu errado',
+        transition: Slide,
+        autoClose: 1800
+      }
+    )
       navigate('/')
 
     } catch (error) {
-      console.log(error)
-
       toast.error('Ops! Algo deu errado', {
         transition: Slide,
         autoClose: 1500

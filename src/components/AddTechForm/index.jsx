@@ -1,23 +1,16 @@
-import { useForm } from "react-hook-form"
-import { useContext } from "react"
-import { UserContext } from "../../providers/UserContext"
-import { TechContext } from "../../providers/TechContext"
+import { useForm } from 'react-hook-form'
+import { useContext } from 'react'
+import { TechContext } from '../../providers/TechContext'
 
-import { api } from '../../services/api'
-
-import { Input } from "../Input/Input"
-import { Select } from "../Select/Select"
-import { Button } from "../Button"
+import { Input } from '../Input/Input'
+import { Select } from '../Select/Select'
+import { Button } from '../Button'
 
 import { StyledAddTechForm } from './styles'
-// import { set } from "zod"
 
-export const AddTechForm = () => {
-  
-  // const { userData, setUserData } = useContext(UserContext)
-  const {register, handleSubmit, formState: {errors}, reset} = useForm({
+export const AddTechForm = ( ) => {
+  const {register, handleSubmit} = useForm({
     mode: 'onBlur',
-    // resolver: zodResolver(LoginFormSchema)
   })
 
   const { submitNewTech } = useContext(TechContext)
@@ -32,7 +25,7 @@ export const AddTechForm = () => {
         <option value="Avançado">Avançado</option>
       </Select>
 
-      <Button type="submit" text={"Cadastrar Tecnologia"}/>
+      <Button type="button" text={"Cadastrar Tecnologia"} onClick={handleSubmit(submitNewTech)} />
 
     </StyledAddTechForm>
   )
