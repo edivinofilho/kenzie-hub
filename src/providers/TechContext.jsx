@@ -70,7 +70,6 @@ export const TechProvider = ({ children }) => {
       setEditModalIsOpen(false)
 
     } catch (error) {
-      console.log(error)
       toast.error('Ups, houve um problema. Tente novamente!', {
         transition: Slide,
         autoClose: 2000
@@ -104,7 +103,6 @@ export const TechProvider = ({ children }) => {
       setEditModalIsOpen(false)
 
     } catch (error) {
-      console.log(error)
        toast.error('Ups, houve um problema. Tente novamente!', {
         transition: Slide,
         autoClose: 2000
