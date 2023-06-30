@@ -15,12 +15,7 @@ export const TechProvider = ({ children }) => {
 
   const submitNewTech = async (formData) => {
     const token = localStorage.getItem('@TOKEN')
-    const updatedTechs = [...userData.user.techs, formData]
-    const updatedUserData = {
-      ...userData,
-      user: { ...userData.user, 
-        techs: updatedTechs}
-    }
+    
 
     try {
       const { data } = await api.post(`/users/techs`, formData, {
@@ -33,11 +28,18 @@ export const TechProvider = ({ children }) => {
         transition: Slide,
         autoClose: 2000
       })
-      
-      setUserData(updatedUserData)
-    
-      setIsOpen(false)
             
+            
+      const updatedTechs = [...userData.user.techs, data]
+      const updatedUserData = {
+        ...userData,
+        user: { ...userData.user, 
+          techs: updatedTechs}
+      }
+
+      setUserData(updatedUserData)
+      setIsOpen(false)
+                  
     } catch (error) {
       toast.error('Ups, houve um problema. Tente novamente!', {
         transition: Slide,
